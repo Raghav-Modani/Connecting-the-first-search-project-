@@ -18,14 +18,14 @@ void union_sets(int u,int v){
     parent[v] = u;
     size[u] += size[v];
   }
-}
+} 
 
 int main(){     
 
-  #ifndef ONLINE_JUDGE
-  freopen("input.txt","r",stdin);
-  freopen("output.txt","w",stdout);
-  #endif
+  // #ifndef ONLINE_JUDGE
+  // freopen("input.txt","r",stdin);
+  // freopen("output.txt","w",stdout);
+  // #endif
 
   int n,m,k;
   cin>>n>>m>>k;
@@ -38,28 +38,33 @@ int main(){
   for(int i=0;i<m;i++){
     int u,v;
     cin>>u>>v;
-    union_sets(u,v);
   }
 
-  while(k--){
+  vector <pair<string,pair<int,int> > > queries;
+  vector <string> ans;
+  for(int i=0;i<k;i++){
     string str;
-    cin>>str;
-    if(str=="cut"){
-      int u,v;
-      cin>>u>>v;
-      parent[v] = v;
-    }
-    if(str=="ask"){
-      int u,v;
-      cin>>u>>v;
-      u = find_set(u);
-      v = find_set(v);
-      if(u==v)
-        cout<<"YES\n";
+    int u,v;
+    cin>>str>>u>>v;
+    queries.push_back({str,{u,v}});
+  }
+  reverse(queries.begin(),queries.end());
+  for(auto p : queries){
+    string str = p.first;
+    int u = p.second.first;
+    int v = p.second.second;
+    if(str=="cut")
+      union_sets(u,v);
+    else{
+      if(find_set(u)==find_set(v))
+        ans.push_back("YES");
       else
-        cout<<"NO\n";
+        ans.push_back("NO");
     }
   }
+  reverse(ans.begin(),ans.end());
+  for(string str : ans)
+    cout<<str<<"\n";
   
   return 0;
     

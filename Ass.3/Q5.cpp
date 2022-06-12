@@ -9,11 +9,6 @@ void add(int i,int delta,vector<long long> &a){
     a[i] += delta;
 }
 
-// void add2(int i,int delta){
-//   for(;i<=n;i += i&-i)
-//     bit2[i] += delta;
-// }
-
 void range_add(int l,int r,int u){
   add(l,u,bit2);
   add(r+1,-u,bit2);
@@ -25,13 +20,6 @@ long long sum(int i,vector<long long> &a){
     res += a[i];
   return res;
 }
-
-// long long sum2(int i){
-//   long long res=0;
-//   for(;i>0;i -= i&-i)
-//     res += bit2[i];
-//   return res;
-// }
 
 int main(){     
 
@@ -63,7 +51,6 @@ int main(){
       cout<<sum(k,bit1)-sum(k-1,bit1)+sum(k,bit2)<<"\n";
     }
   }
-  
   
   return 0;
     
